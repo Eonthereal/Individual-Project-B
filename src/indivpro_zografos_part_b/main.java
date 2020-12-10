@@ -5,12 +5,10 @@
  */
 package indivpro_zografos_part_b;
 
+
 import static Menu.MainMenu.indexPage;
-import Utils.DbUtils;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 /**
  *
@@ -23,7 +21,7 @@ public class main {
      */
     public static void main(String[] args) {
 
-        indexPage();
+        indexPage();indexPage();
   
         
         
