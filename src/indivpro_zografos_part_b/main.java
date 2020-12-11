@@ -6,8 +6,13 @@
 package indivpro_zografos_part_b;
 
 
-import static Menu.MainMenu.indexPage;
-
+import Model.Assignment;
+import Model.Student;
+import dao.AssignmentDaoImpl;
+import dao.AssignmentDaoInt;
+import dao.StudentDaoImpl;
+import dao.StudentDaoInt;
+import java.util.List;
 
 
 /**
@@ -21,12 +26,23 @@ public class main {
      */
     public static void main(String[] args) {
 
-        indexPage();indexPage();
+       // indexPage();indexPage();
   
+        StudentDaoInt sdi = new StudentDaoImpl();
         
+        List <Student> result = sdi.getAllStudents();
+        for (Student x : result){
+            System.out.println(x);
+        }
         
+        System.out.println(" ");
         
+        AssignmentDaoInt adi = new AssignmentDaoImpl();
         
+        List <Assignment> assignmentresult= adi.getAllAssignments();
+        for (Assignment x : assignmentresult){
+            System.out.println(x);
+        }
         }
     
 }

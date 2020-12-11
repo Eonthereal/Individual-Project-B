@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -15,13 +16,13 @@ public class Student {
     private int stundentID;
     private String firstName;
     private String lastName;
-    private LocalDate DateOfBirth;
+    private java.sql.Date DateOfBirth;
     private int TuitionFees;
 
     public Student() {
     }
 
-    public Student(int stundentID, String firstName, String lastName, LocalDate DateOfBirth, int TuitionFees) {
+    public Student(int stundentID, String firstName, String lastName, java.sql.Date DateOfBirth, int TuitionFees) {
         this.stundentID = stundentID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,11 +54,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public java.sql.Date getDateOfBirth() {
         return DateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate DateOfBirth) {
+    public void setDateOfBirth(java.sql.Date DateOfBirth) {
         this.DateOfBirth = DateOfBirth;
     }
 
