@@ -16,13 +16,13 @@ public class Student {
     private int stundentID;
     private String firstName;
     private String lastName;
-    private java.sql.Date DateOfBirth;
+    private LocalDate DateOfBirth;
     private int TuitionFees;
 
     public Student() {
     }
 
-    public Student(int stundentID, String firstName, String lastName, java.sql.Date DateOfBirth, int TuitionFees) {
+    public Student(int stundentID, String firstName, String lastName, LocalDate DateOfBirth, int TuitionFees) {
         this.stundentID = stundentID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -54,11 +54,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public java.sql.Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return DateOfBirth;
     }
 
-    public void setDateOfBirth(java.sql.Date DateOfBirth) {
+    public void setDateOfBirth(LocalDate DateOfBirth) {
         this.DateOfBirth = DateOfBirth;
     }
 

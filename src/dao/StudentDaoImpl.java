@@ -12,7 +12,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,7 +34,8 @@ private Connection con = null;
         ps = con.prepareStatement(sql);
         rs = ps.executeQuery();
         while (rs.next()){
-            Student studentTemp= new Student (rs.getInt("StudentID"), rs.getString("FirstName"), rs.getString("LastName"), rs.getObject("DateOfBirth", Date.class), rs.getInt("TuitionFees"));
+           Date date=rs.getObject("DateOfBirth", Date.class); //I'll use date.toLocalDate() inside the constructor
+            Student studentTemp= new Student (rs.getInt("StudentID"), rs.getString("FirstName"), rs.getString("LastName"), date.toLocalDate(), rs.getInt("TuitionFees"));
             studentList.add(studentTemp);
         }
         
