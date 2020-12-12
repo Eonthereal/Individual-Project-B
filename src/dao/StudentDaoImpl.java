@@ -5,8 +5,8 @@
  */
 package dao;
 
-import model1.Student;
-import utils1.DbUtils;
+import model.Student;
+import utils.DbUtils;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

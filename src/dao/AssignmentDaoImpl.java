@@ -5,8 +5,8 @@
  */
 package dao;
 
-import model1.Assignment;
-import utils1.DbUtils;
+import model.Assignment;
+import utils.DbUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

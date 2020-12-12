@@ -5,7 +5,7 @@
  */
 package dao;
 
-import model1.Student;
+import model.Student;
 import java.util.List;
 
 /**

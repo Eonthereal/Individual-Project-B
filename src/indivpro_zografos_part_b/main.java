@@ -6,8 +6,8 @@
 package indivpro_zografos_part_b;
 
 
-import model1.Assignment;
-import model1.Student;
+import model.Assignment;
+import model.Student;
 import dao.AssignmentDaoImpl;
 import dao.AssignmentDaoInt;
 import dao.StudentDaoImpl;
