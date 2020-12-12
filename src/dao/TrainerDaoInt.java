@@ -5,7 +5,7 @@
  */
 package dao;
 
-import Model.Trainer;
+import model.Trainer;
 import java.util.List;
 
 /**

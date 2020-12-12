@@ -5,11 +5,9 @@
  */
 package dao;
 
-import Model.Assignment;
-import Model.Student;
-import Utils.DbUtils;
+import model.Assignment;
+import utils.DbUtils;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

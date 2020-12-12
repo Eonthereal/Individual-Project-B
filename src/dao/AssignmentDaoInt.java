@@ -5,7 +5,7 @@
  */
 package dao;
 
-import Model.Assignment;
+import model.Assignment;
 import java.util.List;
 
 /**
