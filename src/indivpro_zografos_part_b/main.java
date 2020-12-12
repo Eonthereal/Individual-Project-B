@@ -10,9 +10,12 @@ import model.Assignment;
 import model.Student;
 import dao.AssignmentDaoImpl;
 import dao.AssignmentDaoInt;
+import dao.CourseDaoImpl;
+import dao.CourseDaoInt;
 import dao.StudentDaoImpl;
 import dao.StudentDaoInt;
 import java.util.List;
+import model.Course;
 
 
 /**
@@ -28,6 +31,7 @@ public class main {
 
        // indexPage();indexPage();
   
+        System.out.println("SELECT * FROM student;");
         StudentDaoInt sdi = new StudentDaoImpl();
         
         List <Student> result = sdi.getAllStudents();
@@ -37,12 +41,32 @@ public class main {
         
         System.out.println(" ");
         
+        System.out.println("SELECT * FROM assignment;");
         AssignmentDaoInt adi = new AssignmentDaoImpl();
         
         List <Assignment> assignmentresult= adi.getAllAssignments();
         for (Assignment x : assignmentresult){
             System.out.println(x);
         }
+        
+        
+        System.out.println(" ");
+        
+        System.out.println("SELECT * FROM course;");
+        CourseDaoInt cdi = new CourseDaoImpl();
+        
+        List <Course> courseResult = cdi.getAllCourses();
+        for (Course x : courseResult){
+            System.out.println(x);
         }
+        
+        System.out.println("");
+        
+        
+        
+        }
+    
+    
+    
     
 }
