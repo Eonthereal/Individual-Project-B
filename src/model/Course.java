@@ -82,7 +82,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" + "courseID=" + courseID + ", title=" + title + ", stream=" + stream + ", type=" + type + ", startDate=" + startDate + ", endDate=" + endDate + '}';
+        return "CourseID=" + courseID + ", Title=" + title + ", Stream=" + stream + ", Type=" + type + ", Start Date=" + startDate + ", End Date=" + endDate;
     }
     
     

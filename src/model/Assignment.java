@@ -49,7 +49,7 @@ public class Assignment {
 
     @Override
     public String toString() {
-        return "Assignment{" + "assignmentID=" + assignmentID + ", title=" + title + ", description=" + description + '}';
+        return "AssignmentID=" + assignmentID + ", Title=" + title + ", Description=" + description;
     }
     
     

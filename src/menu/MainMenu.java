@@ -137,33 +137,37 @@ public class MainMenu {
 
     public static void printListOfStudents() {
         StudentDaoInt sdi = new StudentDaoImpl();
-        List<Student> result = sdi.getAllStudents();
-        for (Student x : result) {
-            System.out.println(x);
+        List<Student> listOfStudents = sdi.getAllStudents();
+        for (Student x : listOfStudents) {
+            System.out.println((listOfStudents.indexOf(x)+1)+". " + x );
+            System.out.println("");
         }
     }
 
     public static void printListOfTrainers() {
         TrainerDaoInt tdi = new TrainerDaoImpl();
-        List<Trainer> trainerResult = tdi.getAllTrainers();
-        for (Trainer x : trainerResult) {
-            System.out.println(x);
+        List<Trainer> listOfTrainers = tdi.getAllTrainers();
+        for (Trainer x : listOfTrainers) {
+            System.out.println((listOfTrainers.indexOf(x)+1)+". " + x );
+            System.out.println("");
         }
     }
 
     public static void printListOfAssignments() {
         AssignmentDaoInt adi = new AssignmentDaoImpl();
-        List<Assignment> assignmentresult = adi.getAllAssignments();
-        for (Assignment x : assignmentresult) {
-            System.out.println(x);
+        List<Assignment> listOfAssignments = adi.getAllAssignments();
+        for (Assignment x : listOfAssignments) {
+            System.out.println((listOfAssignments.indexOf(x)+1)+". " + x );
+            System.out.println("");
         }
     }
 
     public static void printListOfCourses() {
         CourseDaoInt cdi = new CourseDaoImpl();
-        List<Course> courseResult = cdi.getAllCourses();
-        for (Course x : courseResult) {
-            System.out.println(x);
+        List<Course> listOfCourses = cdi.getAllCourses();
+        for (Course x : listOfCourses) {
+            System.out.println((listOfCourses.indexOf(x)+1)+". " + x );
+            System.out.println("");
         }
     }
 

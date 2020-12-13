@@ -12,8 +12,8 @@ package model;
 public class Trainer {
     private int trainerID;
     private String firstName;
-    private String LastName;
-    private String Subject;
+    private String lastName;
+    private String subject;
     private Course course; // or CourseID TBD...
 
     public Trainer() {
@@ -22,8 +22,8 @@ public class Trainer {
     public Trainer(int trainerID, String firstName, String LastName, String Subject, Course course) {
         this.trainerID = trainerID;
         this.firstName = firstName;
-        this.LastName = LastName;
-        this.Subject = Subject;
+        this.lastName = LastName;
+        this.subject = Subject;
         this.course = course;
     }
 
@@ -44,19 +44,19 @@ public class Trainer {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String LastName) {
-        this.LastName = LastName;
+        this.lastName = LastName;
     }
 
     public String getSubject() {
-        return Subject;
+        return subject;
     }
 
     public void setSubject(String Subject) {
-        this.Subject = Subject;
+        this.subject = Subject;
     }
 
     public Course getCourse() {
@@ -69,7 +69,7 @@ public class Trainer {
 
     @Override
     public String toString() {
-        return "Trainer{" + "trainerID=" + trainerID + ", firstName=" + firstName + ", LastName=" + LastName + ", Subject=" + Subject + ", course=" + course + '}';
+        return "TrainerID=" + trainerID + ", First Name=" + firstName + ", Last Name=" + lastName + ", Subject=" + subject + ", Course: [" + course + "]";
     }
     
     
