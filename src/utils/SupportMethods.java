@@ -3,20 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
-
-import model.Trainer;
-import java.util.List;
+package utils;
 
 /**
  *
  * @author eon_A
  */
-public interface TrainerDaoInt {
+public class SupportMethods {
     
-    public List<Trainer> getAllTrainers();
+ 
     
-    public List<Trainer> getTrainerByCourseId(int tid);
     
     
 }

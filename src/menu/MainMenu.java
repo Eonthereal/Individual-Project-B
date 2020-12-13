@@ -81,9 +81,8 @@ public class MainMenu {
             System.out.println("type 6 to see the Trainers per course");
             System.out.println("type 7 to see the Assignments per course");
             System.out.println("type 8 to see the Assignments per Student");
-            System.out.println("type 9 to put Grades on Students Assignments");
+            //       System.out.println("type 9 to put Grades on Students Assignments");
             System.out.println("type 10 to see the list of Students that participating to more than one Courses");
-            System.out.println("type 11 to find the Pending Assignments for a particular week, regarding the date you will provide");
             System.out.println("type 0 to exit");
             choice2 = input.nextInt();
             switch (choice2) {
@@ -112,13 +111,10 @@ public class MainMenu {
                     printListOfAssignmentsPerStudentPerCourse();
                     break;
                 case 9:
-                    manualGrader(); //either with manual or synthetic data, the user has to choose if he wants to give Mark Scores to the assignments of the Students (default is "0"). There is no such thing as Automatic Grades!!
+//                    manualGrader(); //either with manual or synthetic data, the user has to choose if he wants to give Mark Scores to the assignments of the Students (default is "0"). There is no such thing as Automatic Grades!!
                     break;
                 case 10:
                     printlistOfStudentMoreThanOneCourses();
-                    break;
-                case 11:
-                    PendingAssignmentsDate.dealine();
                     break;
                 default:
                     System.out.println("");
@@ -139,7 +135,7 @@ public class MainMenu {
         StudentDaoInt sdi = new StudentDaoImpl();
         List<Student> listOfStudents = sdi.getAllStudents();
         for (Student x : listOfStudents) {
-            System.out.println((listOfStudents.indexOf(x)+1)+". " + x );
+            System.out.println((listOfStudents.indexOf(x) + 1) + ". " + x);
             System.out.println("");
         }
     }
@@ -148,7 +144,7 @@ public class MainMenu {
         TrainerDaoInt tdi = new TrainerDaoImpl();
         List<Trainer> listOfTrainers = tdi.getAllTrainers();
         for (Trainer x : listOfTrainers) {
-            System.out.println((listOfTrainers.indexOf(x)+1)+". " + x );
+            System.out.println((listOfTrainers.indexOf(x) + 1) + ". " + x);
             System.out.println("");
         }
     }
@@ -157,7 +153,7 @@ public class MainMenu {
         AssignmentDaoInt adi = new AssignmentDaoImpl();
         List<Assignment> listOfAssignments = adi.getAllAssignments();
         for (Assignment x : listOfAssignments) {
-            System.out.println((listOfAssignments.indexOf(x)+1)+". " + x );
+            System.out.println((listOfAssignments.indexOf(x) + 1) + ". " + x);
             System.out.println("");
         }
     }
@@ -166,9 +162,110 @@ public class MainMenu {
         CourseDaoInt cdi = new CourseDaoImpl();
         List<Course> listOfCourses = cdi.getAllCourses();
         for (Course x : listOfCourses) {
-            System.out.println((listOfCourses.indexOf(x)+1)+". " + x );
+            System.out.println((listOfCourses.indexOf(x) + 1) + ". " + x);
             System.out.println("");
         }
+    }
+
+    public static void printListOfStudentsPerCourse() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("~~~~~~~~~Please select a CourseID to see the Students~~~~~~~~~");
+        boolean caseCheck = false;
+        String flag = "Y";
+        String choice = null;
+        do {
+            StudentDaoInt sdi = new StudentDaoImpl();
+            if (flag.equalsIgnoreCase("Y")) {
+                printListOfCourses();
+                try {
+                    choice = input.nextLine();
+                    List<Student> listOfStudents = sdi.getStudentsByCourseId(Integer.parseInt(choice));;
+                    for (Student x : listOfStudents) {
+                        System.out.println((listOfStudents.indexOf(x) + 1) + ". " + x);
+                        System.out.println("");
+                    }
+                } catch (Exception e) {
+
+                    System.err.println("Please select with number");
+
+                }
+
+            } else if (flag.equalsIgnoreCase("N")) {
+
+                return;
+            } else {
+                System.err.println("Invalid Answer, type: Y or N");
+            }
+            System.out.println("Do you want to check another Course? (Y / N)");
+            flag = input.nextLine();
+
+        } while (caseCheck == false);
+
+    }
+
+    public static void printListOfTrainersPerCourse() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("~~~~~~~~~Please select a course to see the Trainers~~~~~~~~~");
+        boolean caseCheck = false;
+        String flag = "Y";
+        String choice = null;
+        do {
+            TrainerDaoInt tdi = new TrainerDaoImpl();
+            if (flag.equalsIgnoreCase("Y")) {
+                printListOfCourses();
+                try {
+                    choice = input.nextLine();
+                    List<Trainer> listOfTrainer = tdi.getTrainerByCourseId(Integer.parseInt(choice));;
+                    for (Trainer x : listOfTrainer) {
+                        System.out.println((listOfTrainer.indexOf(x) + 1) + ". " + x);
+                        System.out.println("");
+                    }
+                } catch (Exception e) {
+
+                    System.err.println("Please select with number");
+
+                }
+
+            } else if (flag.equalsIgnoreCase("N")) {
+
+                return;
+            } else {
+                System.err.println("Invalid Answer, type: Y or N");
+            }
+            System.out.println("Do you want to check another Course? (Y / N)");
+            flag = input.nextLine();
+
+        } while (caseCheck == false);
+
+    }
+
+    public static void printListOfAssignmentsPerCourse() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("~~~~~~~~~Please select a course to see the Assignements~~~~~~~~~");
+        boolean caseCheck = false;
+        String flag = "Y";
+        do {
+            if (flag.equalsIgnoreCase("Y")) {
+
+            } else if (flag.equalsIgnoreCase("N")) {
+
+                return;
+            } else {
+                System.err.println("Invalid Answer, type: Y or N");
+            }
+            System.out.println("Do you want to check another Course? (Y / N)");
+            flag = input.nextLine();
+
+        } while (caseCheck == false);
+
+    }
+
+    public static void printListOfAssignmentsPerStudentPerCourse() {
+
+    }
+
+    public static void printlistOfStudentMoreThanOneCourses() {
+
     }
 
 }

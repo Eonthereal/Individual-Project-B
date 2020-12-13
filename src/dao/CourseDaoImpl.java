@@ -43,13 +43,13 @@ private Connection con = null;
         }
         
     } catch (SQLException ex) {
-        Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
     }finally {
             try {
                 ps.close();
                 con.close();
             } catch (SQLException ex) {
-                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
     return courseList;
@@ -79,13 +79,13 @@ private Connection con = null;
               result.setEndDate(rs.getObject("EndDate", Date.class).toLocalDate());              
           }
            } catch (SQLException ex) {
-        Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
     }finally {
             try {
                 ps.close();
                 con.close();
             } catch (SQLException ex) {
-                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }    
        
        }

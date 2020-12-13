@@ -47,13 +47,13 @@ private Connection con = null;
         }
         
     } catch (SQLException ex) {
-        Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(TrainerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
     }finally {
             try {
                 ps.close();
                 con.close();
             } catch (SQLException ex) {
-                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TrainerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
     return trainerList;
@@ -61,6 +61,44 @@ private Connection con = null;
         
         
         
+    }
+
+    @Override
+    public List<Trainer> getTrainerByCourseId(int tid) {
+        String sql = "SELECT * FROM trainer INNER JOIN course ON trainer.courseid = course.courseid "
+                + "WHERE trainer.courseid=?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Trainer> trainerList = new ArrayList();
+        CourseDaoImpl cdi = new CourseDaoImpl();
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, tid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            Trainer trainerTemp = new Trainer();
+            trainerTemp.setTrainerID(rs.getInt("TrainerID"));
+            trainerTemp.setFirstName(rs.getString("FirstName"));
+            trainerTemp.setLastName(rs.getString("LastName"));
+            trainerTemp.setSubject(rs.getString("Subject"));
+            trainerTemp.setCourse(cdi.getCourseById(rs.getInt("CourseId")));
+            trainerList.add(trainerTemp);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TrainerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrainerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return trainerList;    
+    
+    
     }
     
 }

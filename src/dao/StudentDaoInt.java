@@ -15,4 +15,7 @@ import java.util.List;
 public interface StudentDaoInt {
     
     public List<Student> getAllStudents();
+    
+    
+    public List<Student> getStudentsByCourseId(int stid);
 }
