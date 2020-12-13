@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dto.StudentAssignmentDto;
 import model.Assignment;
 import java.util.List;
 
@@ -14,5 +15,9 @@ import java.util.List;
  */
 public interface AssignmentDaoInt {
     
-     public List<Assignment> getAllAssignments();
+    public List<Assignment> getAllAssignments();
+     
+    public List<Assignment> getAssignmentsByCourseId(int cid);
+    
+    public List<StudentAssignmentDto> getAssignmentsByStudentId(int sid);
 }

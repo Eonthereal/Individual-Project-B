@@ -10,9 +10,5 @@ package utils;
  * @author eon_A
  */
 public class SupportMethods {
-    
- 
-    
-    
-    
+
 }

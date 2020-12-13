@@ -18,4 +18,7 @@ public interface StudentDaoInt {
     
     
     public List<Student> getStudentsByCourseId(int stid);
+    
+    public List<Student> getStudentsMoreThanOneCourses();
+    
 }
