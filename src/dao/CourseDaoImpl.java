@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Course;
 import java.util.List;
@@ -55,6 +56,40 @@ private Connection con = null;
         
         
             
+    }
+
+    @Override
+    public Course getCourseById(int cid) {
+       String sql = "select *  from course where courseid=?";
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       Course result = null;
+       try {
+          con=DbUtils.getConnection();
+          ps = con.prepareStatement(sql);
+          ps.setInt(1, cid);
+          rs = ps.executeQuery();
+          if (rs.next()){
+              result = new Course();
+              result.setCourseID(rs.getInt("CourseID"));
+              result.setTitle(rs.getString("Title"));
+              result.setStream(rs.getString("Stream"));
+              result.setType(rs.getString("Type"));
+              result.setStartDate(rs.getObject("StartDate", Date.class).toLocalDate());
+              result.setEndDate(rs.getObject("EndDate", Date.class).toLocalDate());              
+          }
+           } catch (SQLException ex) {
+        Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+    }finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+       
+       }
+       return result;
     }
     
 }

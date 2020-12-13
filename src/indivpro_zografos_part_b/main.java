@@ -14,8 +14,11 @@ import dao.CourseDaoImpl;
 import dao.CourseDaoInt;
 import dao.StudentDaoImpl;
 import dao.StudentDaoInt;
+import dao.TrainerDaoImpl;
+import dao.TrainerDaoInt;
 import java.util.List;
 import model.Course;
+import model.Trainer;
 
 
 /**
@@ -63,7 +66,18 @@ public class main {
         System.out.println("");
         
         
+        System.out.println("SELECT * FROM trainer");
         
+        TrainerDaoInt tdi = new TrainerDaoImpl();
+        
+        List<Trainer> trainerResult = tdi.getAllTrainers();
+        for (Trainer x : trainerResult){
+            System.out.println(x);
+        }
+        
+
+
+
         }
     
     

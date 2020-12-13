@@ -15,4 +15,6 @@ import java.util.List;
 public interface CourseDaoInt {
     public List<Course> getAllCourses();
     
+    public Course getCourseById(int cid);
+    
 }
