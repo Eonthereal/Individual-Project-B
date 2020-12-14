@@ -22,8 +22,9 @@ import java.util.logging.Logger;
  *
  * @author eon_A
  */
-public class AssignmentDaoImpl implements AssignmentDaoInt{
-private Connection con = null;
+public class AssignmentDaoImpl implements AssignmentDaoInt {
+
+    private Connection con = null;
 
     @Override
     public List<Assignment> getAllAssignments() {
@@ -31,26 +32,26 @@ private Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Assignment> assignmentList = new ArrayList();
-    try {
-        con=DbUtils.getConnection();
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
-        while (rs.next()){
-            Assignment assignmentTemp= new Assignment (rs.getInt("AssignmentID"), rs.getString("Title"), rs.getString("Description"));
-            assignmentList.add(assignmentTemp);
-        }
-        
-    } catch (SQLException ex) {
-        Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-    }finally {
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Assignment assignmentTemp = new Assignment(rs.getInt("AssignmentID"), rs.getString("Title"), rs.getString("Description"));
+                assignmentList.add(assignmentTemp);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             try {
                 ps.close();
                 con.close();
             } catch (SQLException ex) {
                 Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }
-    return assignmentList;
+        }
+        return assignmentList;
     }
 
     @Override
@@ -62,14 +63,14 @@ private Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Assignment> assignmentList = new ArrayList();
-    try {
-        con=DbUtils.getConnection();
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, cid);
-        rs = ps.executeQuery();
-        while (rs.next()){
-            Assignment assignmentTemp= new Assignment (rs.getInt("AssignmentID"), rs.getString("Title"), rs.getString("Description"));
-            assignmentList.add(assignmentTemp);
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Assignment assignmentTemp = new Assignment(rs.getInt("AssignmentID"), rs.getString("Title"), rs.getString("Description"));
+                assignmentList.add(assignmentTemp);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,14 +98,14 @@ private Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-        con=DbUtils.getConnection();
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, sid);
-        rs = ps.executeQuery();
-        while (rs.next()){
-            Date date = rs.getObject("SubDateTime", Date.class);
-            StudentAssignmentDto assignmentTemp= new StudentAssignmentDto (rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Description"), rs.getInt("OralMark"), rs.getInt("TotalMark"), date.toLocalDate(), rs.getString("Stream"), rs.getString("Type"));
-            studentAssignmentList.add(assignmentTemp);
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, sid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Date date = rs.getObject("SubDateTime", Date.class);
+                StudentAssignmentDto assignmentTemp = new StudentAssignmentDto(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Description"), rs.getInt("OralMark"), rs.getInt("TotalMark"), date.toLocalDate(), rs.getString("Stream"), rs.getString("Type"));
+                studentAssignmentList.add(assignmentTemp);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,7 +119,56 @@ private Connection con = null;
         }
         return studentAssignmentList;
     }
-    
-   
-    
+
+    @Override
+    public int maxAssignmentId() {
+        String sql = "SELECT MAX(assignment.assignmentid) from assignment";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int maxID = 0;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                maxID = rs.getInt("MAX(assignment.assignmentid)");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return maxID;
+
+    }
+
+    @Override
+    public void insertAssingnment(Assignment a) {
+        String sql = "INSERT INTO assignment VALUES (?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, a.getAssignmentID());
+            ps.setString(2, a.getTitle());
+            ps.setString(3, a.getDescription());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AssignmentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 }

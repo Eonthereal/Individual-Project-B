@@ -67,7 +67,7 @@ public class StudentAssignmentDto {
 
     @Override
     public String toString() {
-        return "Assignment Description" + assignmentDescr + ", Oral Mark=" + oralMark + ", Total Mark=" + totalMark + ", Sub Date=" + SubDate + ", Stream=" + Stream + ", Type=" + type;
+        return "Assignment Description" + assignmentDescr + ", Oral Mark=" + oralMark + ", Total Mark=" + totalMark + ", Sub Date=" + SubDate + ", Stream=" + Stream + ", Type=" + type; //Eventhough First Name and Last Name exist in my dtο, I didn't want them to show.
     }
     
     

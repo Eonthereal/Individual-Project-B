@@ -20,4 +20,10 @@ public interface AssignmentDaoInt {
     public List<Assignment> getAssignmentsByCourseId(int cid);
     
     public List<StudentAssignmentDto> getAssignmentsByStudentId(int sid);
+    
+    public int maxAssignmentId();
+    
+    public void insertAssingnment(Assignment a);
+    
+    
 }

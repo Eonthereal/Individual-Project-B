@@ -25,9 +25,9 @@ import model.Trainer;
  *
  * @author eon_A
  */
-public class MainMenu {
+public class ReadMenu {
 
-    public static void indexPage() {
+    public static void readMenu() {
         int counter = 0;
         int choice2;
         Scanner input = new Scanner(System.in);

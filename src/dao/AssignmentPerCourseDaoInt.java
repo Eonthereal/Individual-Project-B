@@ -5,20 +5,13 @@
  */
 package dao;
 
-import model.Course;
-import java.util.List;
-
 /**
  *
  * @author eon_A
  */
-public interface CourseDaoInt {
-    public List<Course> getAllCourses();
+public interface AssignmentPerCourseDaoInt {
     
-    public Course getCourseById(int cid);
+    public void insertAssignmentPerCourse(int aid , int cid);
     
-    public int maxCourseId();
-    
-    public void insertCourse(Course c);
     
 }

@@ -21,4 +21,10 @@ public interface StudentDaoInt {
     
     public List<Student> getStudentsMoreThanOneCourses();
     
+    public int maxStudentId ();
+    
+    public void insertStudent (Student s);
+    
+    
+    
 }

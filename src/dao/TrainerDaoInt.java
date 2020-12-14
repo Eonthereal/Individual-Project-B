@@ -18,5 +18,9 @@ public interface TrainerDaoInt {
     
     public List<Trainer> getTrainerByCourseId(int tid);
     
+    public int maxTrainerId();
+    
+    public void insertTrainer(Trainer t);
+    
     
 }

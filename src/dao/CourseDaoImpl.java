@@ -62,20 +62,20 @@ private Connection con = null;
        String sql = "select *  from course where courseid=?";
        PreparedStatement ps = null;
        ResultSet rs = null;
-       Course result = null;
+       Course course = null;
        try {
           con=DbUtils.getConnection();
           ps = con.prepareStatement(sql);
           ps.setInt(1, cid);
           rs = ps.executeQuery();
           if (rs.next()){
-              result = new Course();
-              result.setCourseID(rs.getInt("CourseID"));
-              result.setTitle(rs.getString("Title"));
-              result.setStream(rs.getString("Stream"));
-              result.setType(rs.getString("Type"));
-              result.setStartDate(rs.getObject("StartDate", Date.class).toLocalDate());
-              result.setEndDate(rs.getObject("EndDate", Date.class).toLocalDate());              
+              course = new Course();
+              course.setCourseID(rs.getInt("CourseID"));
+              course.setTitle(rs.getString("Title"));
+              course.setStream(rs.getString("Stream"));
+              course.setType(rs.getString("Type"));
+              course.setStartDate(rs.getObject("StartDate", Date.class).toLocalDate());
+              course.setEndDate(rs.getObject("EndDate", Date.class).toLocalDate());              
           }
            } catch (SQLException ex) {
         Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,7 +88,67 @@ private Connection con = null;
             }    
        
        }
-       return result;
+       return course;
     }
+
+    @Override
+    public int maxCourseId() {
+        String sql = "SELECT MAX(course.courseid) from course";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int maxID = 0;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                maxID = rs.getInt("MAX(course.courseid)");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        return maxID;
+    }
+
+    @Override
+    public void insertCourse(Course c) {
+        String sql = "INSERT INTO course VALUES (?,?,?,?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, c.getCourseID());
+            ps.setString(2, c.getTitle());
+            ps.setString(3, c.getStream());
+            ps.setString(4, c.getType());
+            Date date = Date.valueOf(c.getStartDate());
+            ps.setDate(5, date);
+            System.out.println("check before");
+            Date date2 = Date.valueOf(c.getEndDate());
+            ps.setDate(6, date2);
+            System.out.println("check after");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
+    
     
 }

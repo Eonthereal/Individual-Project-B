@@ -56,10 +56,10 @@ public class StudentDaoImpl implements StudentDaoInt {
 
     @Override
     public List<Student> getStudentsByCourseId(int stid) {
-        String sql ="SELECT student.* "
-                +   "FROM courseperstudent, student, course WHERE courseperstudent.courseid = course.courseid "
-                +   "AND courseperstudent.studentid = student.studentid "
-                +   "AND course.CourseID=?";
+        String sql = "SELECT student.* "
+                + "FROM courseperstudent, student, course WHERE courseperstudent.courseid = course.courseid "
+                + "AND courseperstudent.studentid = student.studentid "
+                + "AND course.CourseID=?";
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Student> studentList = new ArrayList();
@@ -89,12 +89,12 @@ public class StudentDaoImpl implements StudentDaoInt {
 
     @Override
     public List<Student> getStudentsMoreThanOneCourses() {
-   String sql = "SELECT student.* "
-           +    "FROM courseperstudent "
-           +    "INNER JOIN student "
-           +    "ON student.StudentID = courseperstudent.studentid "
-           +    "GROUP BY courseperstudent.studentid "
-           +    "HAVING count(courseperstudent.courseid)>1";
+        String sql = "SELECT student.* "
+                + "FROM courseperstudent "
+                + "INNER JOIN student "
+                + "ON student.StudentID = courseperstudent.studentid "
+                + "GROUP BY courseperstudent.studentid "
+                + "HAVING count(courseperstudent.courseid)>1";
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Student> studentList = new ArrayList();
@@ -118,11 +118,62 @@ public class StudentDaoImpl implements StudentDaoInt {
                 Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return studentList;    
-    
-    
+        return studentList;
+
     }
-    
-    
+
+    @Override
+    public int maxStudentId() {
+        String sql = "SELECT MAX(student.studentid) from student";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int maxID = 0;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                maxID = rs.getInt("MAX(student.studentid)");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return maxID;
+    }
+
+    @Override
+    public void insertStudent(Student s) {
+        String sql = "INSERT INTO student VALUES (?,?,?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, s.getStundentID());
+            ps.setString(2, s.getFirstName());
+            ps.setString(3, s.getLastName());
+            Date date = Date.valueOf(s.getDateOfBirth());
+            ps.setDate(4, date);
+            ps.setInt(5, s.getTuitionFees());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
 
 }
