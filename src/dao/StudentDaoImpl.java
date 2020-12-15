@@ -176,4 +176,59 @@ public class StudentDaoImpl implements StudentDaoInt {
 
     }
 
+    @Override
+    public List<Student> printListOfStudentsWithoutCourse() {
+        String sql = "SELECT * FROM student WHERE student.studentid "
+                + "NOT IN (SELECT courseperstudent.studentid "
+                + "FROM courseperstudent)";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Student> studentList = new ArrayList();
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Date date = rs.getObject("DateOfBirth", Date.class); //I'll use date.toLocalDate() inside the constructor
+                Student studentTemp = new Student(rs.getInt("StudentID"), rs.getString("FirstName"), rs.getString("LastName"), date.toLocalDate(), rs.getInt("TuitionFees"));
+                studentList.add(studentTemp);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return studentList;
+    
+    }
+
+    @Override
+    public void addExistingStudentToCourse(int cid, int sid) {
+      String sql = "INSERT INTO courseperstudent VALUES (?,?)";
+        PreparedStatement ps = null;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cid);
+            ps.setInt(2, sid);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }  
+        
+    }    
+
 }

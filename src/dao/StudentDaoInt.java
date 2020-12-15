@@ -25,6 +25,10 @@ public interface StudentDaoInt {
     
     public void insertStudent (Student s);
     
+    public List<Student> printListOfStudentsWithoutCourse();
+    
+    public void addExistingStudentToCourse(int cid, int sid);
+    
     
     
 }

@@ -12,6 +12,7 @@ import dao.AssignmentPerCourseDaoInt;
 import dao.StudentDaoImpl;
 import dao.StudentDaoInt;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import menu.ReadMenu;
 import static menu.ReadMenu.printListOfCourses;
@@ -99,7 +100,16 @@ public class main {
 //             System.out.println("Do you want to add another Assignment? (Y/N)");
 //            loopCheck = input.next();
 //}while (loopCheck.equalsIgnoreCase("Y"));
+
+
+//StudentDaoInt sdi = new StudentDaoImpl();
 //
+//List<Student> listOfStudents = sdi.printListOfStudentsWithoutCourse();
+//        for (Student x : listOfStudents) {
+//            System.out.println((listOfStudents.indexOf(x) + 1) + ". " + x);
+//            System.out.println("");
+//        }
+
 }
     
     

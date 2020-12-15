@@ -15,10 +15,13 @@ import dao.StudentDaoImpl;
 import dao.StudentDaoInt;
 import dao.TrainerDaoImpl;
 import dao.TrainerDaoInt;
+import dto.StudentAssignmentDto;
+import static java.lang.System.exit;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import static menu.ReadMenu.printListOfCourses;
+import static menu.ReadMenu.printListOfStudents;
 import model.Assignment;
 import model.Course;
 import model.Student;
@@ -237,7 +240,7 @@ public class WriteMenu {
             assignment.setDescription(description);
 
             adi.insertAssingnment(assignment);
-            
+
             System.out.println("Please Select the CourseID of the Assignment: ");
             printListOfCourses();
             try {
@@ -247,54 +250,153 @@ public class WriteMenu {
             } catch (NumberFormatException e) {
                 System.err.println("Please select with number");
 
-        } 
+            }
             System.out.println("Do you want to add another Assignment? (Y/N)");
             loopCheck = input.next();
-        }while (loopCheck.equalsIgnoreCase("Y"));
-    }    
-    
-    public static void inputCourses(){
+        } while (loopCheck.equalsIgnoreCase("Y"));
+    }
+
+    public static void inputCourses() {
         String loopCheck = "Y";
-        do{
+        do {
             Scanner input = new Scanner(System.in);
             Course course = new Course();
             CourseDaoInt cdi = new CourseDaoImpl();
-            
-            course.setCourseID(cdi.maxCourseId()+1);
-            
+
+            course.setCourseID(cdi.maxCourseId() + 1);
+
             System.out.println("Title:");
             String title = input.nextLine();
             course.setTitle(title);
-            
+
             System.out.println("Stream:");
             String stream = input.nextLine();
             course.setStream(stream);
-            
+
             System.out.println("Type:");
             String answer = input.nextLine();
             course.setType(SupportMethods.valPartFullTime(answer));
-            
+
             System.out.println("Start Date (\"yyyy-mm-dd\"):");
             staticDate = input.next();
             valDate();
             LocalDate dateObj = LocalDate.parse(staticDate);
             course.setStartDate(dateObj);
-            
+
             System.out.println("End Date (\"yyyy-mm-dd\"):");
             staticDate = input.next();
             valDate();
             LocalDate dateObj2 = LocalDate.parse(staticDate);
             course.setEndDate(dateObj2);
-            
-            
+
             cdi.insertCourse(course);
-            
+
             System.out.println("Do you want to add another Course? (Y/N)");
             loopCheck = input.next();
-            
-        }while (loopCheck.equalsIgnoreCase("Y"));
-        
+
+        } while (loopCheck.equalsIgnoreCase("Y"));
+
     }
-    
+
+    public static void inputStudentsPerCourse() {
+        Scanner input = new Scanner(System.in);
+
+        boolean caseCheck = false;
+        String flag1 = "Y";
+        String flag2 = "Y";
+
+        String choice = null;
+        String choice2 = null;
+        String generalChoice = null;
+        int choiceInt;
+        int choiceInt2;
+
+        StudentDaoInt sdi = new StudentDaoImpl();
+        do {
+            System.out.println("type 1 to add Students without Courses to a Course");
+            System.out.println("type 2 to add Students with Courses to another Course");
+            System.out.println("type 0 to exit");
+            generalChoice = input.nextLine();
+
+            switch (Integer.parseInt(generalChoice)) {
+                case 1:
+                    if (flag1.equalsIgnoreCase("Y")) {
+                        try {
+                            List<Student> listOfStudents = sdi.printListOfStudentsWithoutCourse();
+                            if (listOfStudents.size() == 0) {
+                                System.out.println("");
+                                System.err.println("There are no Students without Courses Assigned");
+
+                            } else {
+                                System.out.println("~~~~~~~~~Please select a StudentID to add them to a Course~~~~~~~~~");
+
+                                for (Student x : listOfStudents) {
+                                    System.out.println((listOfStudents.indexOf(x) + 1) + ". " + x);
+                                    System.out.println("");
+                                }
+                                choice = input.nextLine();
+                                choiceInt = Integer.parseInt(choice);
+                                System.out.println("~~~~~~~~~Please select the CourseID of the Course~~~~~~~~~");
+                                printListOfCourses();
+                                choice2 = input.nextLine();
+                                choiceInt2 = Integer.parseInt(choice2);
+                                sdi.addExistingStudentToCourse(choiceInt2, choiceInt);
+                            }
+
+                        } catch (NumberFormatException e) {
+
+                            System.err.println("Please select with number");
+                        }
+                    } else if (flag1.equalsIgnoreCase("N")) {
+
+                        return;
+                    } else {
+                        System.err.println("Invalid Answer, type: Y or N");
+                    }
+                    System.out.println("Do you want to search for another Student? (Y / N)");
+                    flag1 = input.nextLine();
+                    break;
+                case 2:
+                    if (flag1.equalsIgnoreCase("Y")) {
+                        try {
+
+                            System.out.println("~~~~~~~~~Please select a StudentID to add them to a Course~~~~~~~~~");
+                            printListOfStudents();
+                            choice = input.nextLine();
+                            choiceInt = Integer.parseInt(choice);
+
+                            System.out.println("~~~~~~~~~Please select the CourseID of the Course~~~~~~~~~");
+                            printListOfCourses();
+                            choice2 = input.nextLine();
+                            choiceInt2 = Integer.parseInt(choice2);
+
+                            sdi.addExistingStudentToCourse(choiceInt2, choiceInt);
+
+                        } catch (NumberFormatException e) {
+
+                            System.err.println("Please select with number");
+                        }
+                    } else if (flag1.equalsIgnoreCase("N")) {
+
+                        return;
+                    } else {
+                        System.err.println("Invalid Answer, type: Y or N");
+                    }
+                    System.out.println("Do you want to search for another Student? (Y / N)");
+                    flag1 = input.nextLine();
+
+                    break;
+                case 0:
+
+                    caseCheck = true;
+
+                    break;
+
+            }
+        } while (caseCheck == false);
+
+    }
+
+}
 
 }
