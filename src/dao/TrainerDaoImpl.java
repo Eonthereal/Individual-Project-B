@@ -148,5 +148,65 @@ public class TrainerDaoImpl implements TrainerDaoInt {
             }
         }
     }
+    
+    @Override
+    public Trainer getTrainerByID(int tid){
+     String sql = "select *  from trainer where trainerid=?";
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       Trainer trainer = null;
+       CourseDaoImpl cdi = new CourseDaoImpl();
+       try {
+          con=DbUtils.getConnection();
+          ps = con.prepareStatement(sql);
+          ps.setInt(1, tid);
+          rs = ps.executeQuery();
+          if (rs.next()){
+              trainer = new Trainer();
+              trainer.setTrainerID(rs.getInt("TrainerID"));
+              trainer.setFirstName(rs.getString("FirstName"));
+              trainer.setLastName(rs.getString("LastName"));
+              trainer.setSubject(rs.getString("Subject"));
+              trainer.setCourse(cdi.getCourseById(rs.getInt("CourseId")));                  
+          }
+           } catch (SQLException ex) {
+        Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+    }finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+       
+       }
+       return trainer;
+    }
+    @Override
+    public void changeTrainerCourse(int cid, int tid, String Subject ){
+    String sql = "update trainer set courseid=?, trainer.subject=? where trainerid=?";
+    PreparedStatement ps = null;
+        try {
+            con = DbUtils.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cid);
+            ps.setString(2, Subject);
+            ps.setInt(3, tid);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(TrainerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrainerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
+    
+    
 
 }

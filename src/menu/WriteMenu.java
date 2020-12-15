@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Scanner;
 import static menu.ReadMenu.printListOfCourses;
 import static menu.ReadMenu.printListOfStudents;
+import static menu.ReadMenu.printListOfTrainers;
 import model.Assignment;
 import model.Course;
 import model.Student;
@@ -57,7 +58,7 @@ public class WriteMenu {
             System.out.println("type 3 to input an Assignment");
             System.out.println("type 4 to input a Course");
             System.out.println("type 5 to add existing Students to Courses");
-            System.out.println("type 6 to input a the Trainers per course"); // Να το δω μετά
+            System.out.println("type 6 to input new Course and Subject to Trainers"); // Να το δω μετά
             System.out.println("type 7 to add Assignments to Course");
             System.out.println("type 8 to input a the Assignments per Student"); // Να το δω μετά
             System.out.println("type 0 to exit");
@@ -82,18 +83,16 @@ public class WriteMenu {
                     inputCourses();
                     break;
                 case 5:
-                    inputStudentsPerCourse();
+                    inputStudentsPerCourse(); // This Method has two functions, One for Students that have no Course yet and one to Add one Student to more Courses
                     break;
                 case 6:
-                    //Να βάλω να αλλάζει course ένα existing, οι νέοι trainers μπαίνουν σε Courses.
-                  //  inputTrainersPerCourse();
+                    inputTrainersPerCourse(); // Trainers cannot stay without Course but can change between Courses, this method changes their Course and Subject via User Input.
                     break;
                 case 7:
-                    //New Assignments are added to Courses when they created. (Select "3" to Create a new Assignment)
-                    //inputAssignmentsPerCourse(); 
+                    inputAssignmentsPerCourse(); 
                     break;
                 case 8:
-                  //  inputAssignmentsPerStudentPerCourse();
+                    inputAssignmentsPerStudentPerCourse(); // Instead of this method I could do a graderMethod for Assingnments that have no Grades but there is not time atm.
                     break;
                 default:
                     System.out.println("");
@@ -107,7 +106,7 @@ public class WriteMenu {
         } while (choice != 0);
 
         System.out.println("");
-
+    
     }
 
     public static void inputStudents() {
@@ -117,7 +116,7 @@ public class WriteMenu {
             Student student = new Student();
             StudentDaoInt sdi = new StudentDaoImpl();
 
-            student.setStundentID(sdi.maxStudentId() + 1);
+            student.setStundentID(sdi.maxStudentId() + 1); //I didn't use Auto Increment in SQL, in case IDs are usefull for other methods
 
             System.out.println("First name:");
             String firstName = input.nextLine();
@@ -299,6 +298,57 @@ public class WriteMenu {
         } while (caseCheck == false);
 
     }
+    
+    
+    public static void inputAssignmentsPerCourse() {
+        System.out.println("In this project implemenetation, this method would have no point. "
+                + "Since there is no point of an Assignment to exist without a Course. "
+                + "The Method inputAssignments(),case 3, produces an Assignment through user input, "
+                + "assigns it in a particular Course and its Students.");
+    
+    }
+    
+    public static void inputTrainersPerCourse(){
+    Scanner input = new Scanner(System.in);
+    String trainerID = null;
+    String courseID = null;
+    String subject = null;
+    TrainerDaoInt tdi = new TrainerDaoImpl();
+   
+    try {
+        System.out.println("~~~~~~~~~Please Select the **TrainerID** you want to Change Course~~~~~~~~~");
+        System.out.println("");
+        printListOfTrainers();
+        trainerID = input.nextLine();
+        
+        System.out.println("~~~~~~~~~Please Select the new **CourseID** of the Trainer~~~~~~~~~");
+        System.out.println("");
+        printListOfCourses();
+        courseID =  input.nextLine();
+        
+        System.out.println("~~~~~~~~~Please type what is the new Subject of the Trainer~~~~~~~~~ ");
+        subject = input.nextLine();
+        
+        tdi.changeTrainerCourse(Integer.parseInt(courseID),Integer.parseInt(trainerID), subject);
+        
+       }catch (NumberFormatException e) {
+                System.err.println("Please select with number");
+            }  
+        System.out.println("");
+        System.out.println("DONE!!");
+   
+    }
+    
+    public static void inputAssignmentsPerStudentPerCourse(){
+    System.out.println("In this project implemenetation, this method would have no point. "
+                + "Since this scenario is covered partially with case 3 (Method inputAssignments()), "
+            + "which produces an Assignment through user input, assigns it in a particular Course and its Students. "
+            + "Furthemore with case 5 (method inputStudentsPerCourse()) we cover the other half of this function. "
+            + "Since, when a students gets an extra Course, will also get automatically the Course's Assignments."
+            + "A 'graderMethod' could replace this instead, for changing grades to students assignments. But there is no time. ");
+    
+    }
+    
 
 }
 

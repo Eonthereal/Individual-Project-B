@@ -5,15 +5,21 @@
  */
 package utils;
 
+import dao.AssignmentDaoImpl;
+import dao.AssignmentDaoInt;
+import dao.AssignmentPerStudentDaoImpl;
+import dao.AssignmentPerStudentDaoInt;
 import dao.StudentDaoImpl;
 import dao.StudentDaoInt;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import static menu.ReadMenu.printListOfCourses;
 import static menu.ReadMenu.printListOfStudents;
 import static menu.WriteMenu.staticDate;
+import model.Assignment;
 import model.Student;
 
 /**
@@ -61,10 +67,12 @@ public class SupportMethods {
         int choiceInt;
         int choiceInt2;
         StudentDaoInt sdi = new StudentDaoImpl();
-
+        List<Assignment> assignmentList = new ArrayList();
+        AssignmentPerStudentDaoInt apsdi = new AssignmentPerStudentDaoImpl();
+        AssignmentDaoInt adi = new AssignmentDaoImpl();
         try {
             List<Student> listOfStudents = sdi.printListOfStudentsWithoutCourse();
-            if (listOfStudents.size() == 0) {
+            if (listOfStudents.isEmpty()) {
                 
                 System.err.println("There are no Students with zero Courses Assigned");
                 System.out.println("");
@@ -84,6 +92,12 @@ public class SupportMethods {
                 choice2 = input.nextLine();
                 choiceInt2 = Integer.parseInt(choice2);
                 sdi.addExistingStudentToCourse(choiceInt2, choiceInt);
+                
+                assignmentList=adi.getAssignmentsByCourseId(choiceInt2);
+                LocalDate subDate = LocalDate.now();
+                for (Assignment x: assignmentList){
+                apsdi.insertAssignmentPerStudent(x.getAssignmentID(), choiceInt, subDate);
+                }
 
             }
         } catch (NumberFormatException e) {
@@ -99,6 +113,9 @@ public class SupportMethods {
         int choiceInt;
         int choiceInt2;
         StudentDaoInt sdi = new StudentDaoImpl();
+        List<Assignment> assignmentList = new ArrayList();
+        AssignmentPerStudentDaoInt apsdi = new AssignmentPerStudentDaoImpl();
+        AssignmentDaoInt adi = new AssignmentDaoImpl();
 
         try {
             System.out.println("~~~~~~~~~Please select a StudentID to add them to a Course~~~~~~~~~");
@@ -112,6 +129,11 @@ public class SupportMethods {
             choiceInt2 = Integer.parseInt(choice2);
 
             sdi.addExistingStudentToCourse(choiceInt2, choiceInt);
+                  assignmentList=adi.getAssignmentsByCourseId(choiceInt2);
+                LocalDate subDate = LocalDate.now();
+                for (Assignment x: assignmentList){
+                apsdi.insertAssignmentPerStudent(x.getAssignmentID(), choiceInt, subDate);
+                }
 
         } catch (NumberFormatException e) {
             System.err.println("Please select with number");

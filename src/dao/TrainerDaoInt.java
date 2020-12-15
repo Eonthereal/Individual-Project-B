@@ -22,5 +22,8 @@ public interface TrainerDaoInt {
     
     public void insertTrainer(Trainer t);
     
+    public Trainer getTrainerByID(int tid);
+    
+    public void changeTrainerCourse(int cid, int tid, String Subject );
     
 }
