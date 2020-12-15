@@ -28,49 +28,11 @@ import model.Trainer;
 public class ReadMenu {
 
     public static void readMenu() {
-        int counter = 0;
         int choice2;
         Scanner input = new Scanner(System.in);
-        System.out.println("Hello!! \nDo you want to input your data manually?\nY / N or type \"exit\" to stop:");
-//        do {
-//            String choice = input.next();
-//
-//            if (choice.equalsIgnoreCase("Y")) {
-//
-//                System.out.println("~~~~~~~~~Courses, creation~~~~~~~~~");
-//                ManualDataMethods.inputCourses();
-//
-//                System.out.println("~~~~~~~~~Students, creation~~~~~~~~~");
-//                ManualDataMethods.inputStudents();
-//
-//                System.out.println("~~~~~~~~~Trainers, creation~~~~~~~~~");
-//                ManualDataMethods.inputTrainers();
-//
-//                System.out.println("~~~~~~~~~Assignments, creation~~~~~~~~~");
-//                ManualDataMethods.inputAssignments();
-//
-//                counter = 10;
-//
-//            } else if (choice.equalsIgnoreCase("N")) {
-//
-//                SyntheticDataMethods.botFiller();
-//                counter = 10;
-//
-//            } else if (choice.equalsIgnoreCase("exit")) {
-//                System.out.println("~~~~~~~~~~~~~~~~~~~The Program has been terminated~~~~~~~~~~~~~~~~~~~");
-//                System.exit(0);   //googled it!
-//            } else {
-//
-//                if (counter < 9) {
-//                    System.err.println("Invalid Answer...\nPlease Try Again or Type \"exit\" to stop " + "\n*****" + (9 - counter) + " Attempts Remaining" + "*****");
-//                    counter++;
-//                } else {
-//                    System.out.println("~~~~~~~~~~~~~~~~~~~The Program has been terminated automatically~~~~~~~~~~~~~~~~~~~");
-//                    System.exit(0);
-//                }
-//            }
-//
-//        } while (counter < 10);
+        System.out.println("~~~~~~~~~~~~~~~~~~~READ FROM DATABASE!~~~~~~~~~~~~~~~~~~~");
+        System.out.println(" ");
+        System.out.println(" ");
 
         do {
             System.out.println("~~~~~~~~~~~~~~~~~~~Options Menu~~~~~~~~~~~~~~~~~~~");
